@@ -1,0 +1,87 @@
+---
+title: "MST62"
+author: "Ishaan Kapoor"
+date: "9/2/2021"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+
+
+## R Markdown
+
+##Libraries
+```{r}
+library(tidyverse)
+library(readr)
+```
+
+
+##Import clean DATA
+```{r}
+mpc62_clean<-read_csv("data/mpc62_clean.csv")
+mpc62_clean
+```
+
+#IMPORT UNTIDY DATA
+```{r}
+mpc62<-read_table("data/MPC62.DAT", col_names=FALSE, skip=14)
+```
+```{r}
+ggplot(data=mpc62_clean)+
+  geom_point( mapping=aes(x=seq_along(average), y=average))
+```
+
+
+```{r}
+measured_mean_days<-mean(mpc62_clean$average)
+measured_std_l2<-sd(mpc62_clean$average)
+measured_std_pooled <-sqrt(mean(mpc62_clean$stdev^2))
+```
+
+
+
+```{r}
+
+ggplot(data=mpc62_clean)+
+  geom_histogram(mapping=aes(x=average), bins=15)
+```
+
+
+```{r}
+ggplot(data=mpc62_clean)+
+  geom_qq(mapping=aes(sample=average))+
+  geom_qq_line(mapping=aes(sample=average))
+```
+
+
+```{r}
+ggplot(data=mpc62_clean)+
+  geom_point(mapping=aes(x=lag(average) , y=average))
+```
+```{r}
+ggplot(data=mpc62_clean)+
+  geom_point(mapping=aes(x=seq_along(average), y=average))+
+  geom_hline(yintercept=measured_mean_days)+
+  geom_hline(yintercept=measured_mean_days+2*measured_std_l2,  linetype='dashed')+
+  geom_hline(yintercept=measured_mean_days-2*measured_std_l2, linetype='dashed')
+```
+
+```{r}
+k<-2
+t_critical<-qt(.975, 24)
+f_critical<- qf(0.95, 5, 125)
+```
+
+
+
+
+```{r}
+ggplot(data=mpc62_clean)+
+  geom_point(mapping=aes(x=seq_along(stdev), y=stdev))+
+  geom_hline(yintercept=measured_std_pooled*sqrt(f_critical), linetype= 'dashed')
+```
+
+```
+

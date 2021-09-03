@@ -1,0 +1,100 @@
+---
+title: "Week02-assignment"
+author: "YOUR NAME HERE"
+date: "TODAY's DATE HERE"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Libraries used in this document 
+
+For the tasks below, we'll be using **ggplot2** package, which is part of the **tidyverse**
+
+```{r}
+library(tidyverse)
+```
+
+## Class assignments for Week 02 
+
+### TASK 1: Load the *mpc62_clean.csv* and MPC62.DAT data files  
+
+Load the dataset and create create a data frame as an object. Use the assignment operator <-
+
+```{r import_mpc62}
+
+```
+
+### TASK 2: Confirm that the data shos no evidence of non-normality  
+
+Create the following charts using **ggplot()**:  
+- "Run plot" using geom_point  
+- Histogram  
+- Q-Q plot (include **geom_qq** and **geom_qq_line** as layers)  
+- Lag plot using by using the **lag()** function when mapping the aesthetics within **ggplot**.  
+
+```{r run_plot}
+
+```
+
+```{r histogram}
+
+```
+
+```{r qq_plot}
+
+```
+
+```{r lag_plot}
+
+```
+
+
+### TASK 3: Create named objects using base R functions 
+
+- Calculate the mean value for the 25 average daily measurements.
+- Calculate the level-2 standard deviation for the 25 average daily measurements.
+- Calculate the level-1 standard deviation (pooled) for the daily standard deviations.
+
+```{r named_objects}
+
+```
+
+
+
+### TASK 4: Calcluate test statistics  
+
+Confirm you can reproduce the results from example [2.6.2.5 from the NIST Handbook](https://www.itl.nist.gov/div898/handbook/mpc/section6/mpc625.htm)
+
+- Calculate the t-test statistic using the `qt()` function
+- Calculate the F-test statistic using the `qf()` function
+
+```{r test_stats}
+
+```
+
+
+### TASK 5: Create a Shewhart control chart 
+
+```{r shewhart_chart}
+
+```
+
+
+### TASK 6: Create a control chart for precision 
+
+```{r level1_chart}
+
+```
+
+
+
+
+
+
+
+
+
+
