@@ -1,4 +1,6 @@
 # applied_stat_techniques
+R project for applied stats class MST 6600-002
+
 R project for applied stats repo. 
 
 A humble request to all who decide to commit to this repository. Please create a seperate branch with your UID/Name. 
