@@ -1,0 +1,38 @@
+---
+title: "Assignment_1"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Libraries
+```{r}
+library(tidyverse) 
+```
+
+##anscombe
+
+```{r}
+anscombe
+
+summary(anscombe)
+
+```
+## a plot
+
+```{r}
+ggplot(data=anscombe)+
+  geom_point(mapping=aes(x=x1,y=y1))
+
+ggplot(data=anscombe)+
+  geom_point(mapping=aes(x=x2,y=y2))
+
+ggplot(data=anscombe)+
+  geom_point(mapping=aes(x=x3,y=y3))
+
+ggplot(data=anscombe)+
+  geom_point(mapping=aes(x=x4,y=y4))
+```
+

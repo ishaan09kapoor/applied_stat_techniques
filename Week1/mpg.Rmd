@@ -1,0 +1,46 @@
+---
+title: "Assignment_1_1"
+output: html_document
+---
+
+## libraries
+
+```{r}
+library(tidyverse)
+```
+
+##potting
+
+```{r}
+ggplot(mpg)+
+  geom_point(mapping=aes(x=displ,y=hwy),size=2)+
+  geom_smooth(mapping=aes(x=displ,y=hwy),se=FALSE, size=2)
+```
+
+
+```{r}
+ggplot(mpg)+
+  geom_smooth(mapping=aes(x=displ,y=hwy, group=drv),se=FALSE, size=2)+
+  geom_point(mapping=aes(x=displ,y=hwy),size=2)
+```
+
+
+```{r}
+ggplot(mpg)+
+  geom_smooth(mapping=aes(x=displ,y=hwy),se=FALSE, size=2)+
+  geom_point(mapping=aes(x=displ,y=hwy, colour=drv),size=2)
+```
+
+
+```{r}
+ggplot(mpg)+
+  geom_smooth(mapping=aes(x=displ,y=hwy, colour=drv),se=FALSE, size=2)+
+  geom_point(mapping=aes(x=displ,y=hwy, colour=drv),size=2)
+```
+
+
+```{r}
+ggplot(mpg)+
+  geom_smooth(mapping=aes(x=displ,y=hwy, linetype=drv),se=FALSE, size=2)+
+  geom_point(mapping=aes(x=displ,y=hwy, colour=drv),size=2)
+```
