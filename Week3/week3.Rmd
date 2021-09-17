@@ -1,0 +1,124 @@
+---
+title: "week3"
+author: "Ishaan Kapoor"
+date: "9/9/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+##Libraries
+```{r}
+library(tidyverse)
+library(dplyr)
+```
+
+##Load DataSet
+```{r}
+(dataSet<- read_csv('dataset/mpc61a_clean.csv', 
+                    col_types =cols(
+                      wafer=col_character(), 
+                      run=col_factor(levels=c("1", "2")),
+                      probe=col_character(), 
+                      operator=col_character())))
+
+dataSet
+```
+
+##Modify Dataset
+```{r}
+dataSet <- dataSet %>% select(1:3,6:10)
+dataSet
+```
+
+
+##Filter Data
+```{r}
+probe2362 <- dataSet %>% filter(probe==2362)
+probe2362
+```
+
+
+##Use calculated std dev to calculate the pooled std dev
+
+```{r}
+pooledStdDev <- probe2362 %>% 
+  summarise(level1StdDev=sqrt(mean(stdev^2)))
+
+pooledStdDev
+```
+
+#Do the same thing using mutate function
+```{r}
+pooledStdDevSquareInfo <- probe2362 %>% 
+  mutate(stdevSquared=stdev*stdev)
+
+
+pooledStdDevAlt <- pooledStdDevSquareInfo %>% 
+  summarise(level1StdDev=sqrt(mean(stdevSquared)))
+
+pooledStdDevAlt
+
+```
+
+##Using Group By
+```{r}
+probe2362 %>%
+  group_by(run) %>%
+  summarise(level1StdDev=sqrt(mean(stdev^2)))
+```
+
+##Calculate level 2 stddev
+```{r}
+dataSet %>%
+  filter(probe==2362 , wafer==140) %>%
+  group_by(run) %>%
+  summarise(level2StdDev=sd(average)) %>%
+  ungroup()
+```
+
+##Calculate lev2 std dev for all wafers and probes
+```{r}
+dataSet %>%
+  group_by(run, wafer, probe) %>%
+  summarise(level2StdDev=sd(average)) %>%
+  ungroup() %>%
+  arrange(level2StdDev)
+```
+
+##Calculate lev1 std dev for all wafers and probes
+```{r}
+dataSet %>%
+  group_by(run, wafer, probe) %>%
+  summarise(level1StdDev=sqrt(mean(stdev^2))) %>%
+  arrange(desc(level1StdDev)) %>%
+  ungroup()
+```
+
+##Analysis of stability (stdev, average) of all wafers
+```{r}
+dataSet %>%
+  ggplot() +
+  geom_point(mapping=aes(x= date_time, y=stdev, colour = wafer))
+
+dataSet %>%
+  ggplot() +
+  geom_point(mapping=aes(x= date_time, y=stdev, colour = probe)) +
+  facet_wrap(~probe)
+
+dataSet %>%
+  ggplot() +
+  geom_point(mapping=aes(x= date_time, y=stdev, colour = probe))+
+  facet_wrap(~wafer)
+
+dataSet %>%
+  ggplot() +
+  geom_point(mapping=aes(x= wafer, y=stdev, colour = wafer))+
+  facet_wrap(~probe)
+```
+
+
+
